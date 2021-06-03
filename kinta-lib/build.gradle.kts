@@ -2,6 +2,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.apollographql.apollo")
+    id("org.jetbrains.dokka")
 }
 
 dependencies {

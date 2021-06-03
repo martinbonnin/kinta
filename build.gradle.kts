@@ -1,11 +1,15 @@
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+    dependencies {
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.4.32")
+    }
+}
 plugins {
     id("org.jetbrains.kotlin.jvm").version(Versions.kotlin).apply(false)
     id("org.jetbrains.kotlin.plugin.serialization").version(Versions.kotlin).apply(false)
     id("com.apollographql.apollo").version(Versions.apollo).apply(false)
-    id("org.jetbrains.dokka").version(Versions.dokka).apply(false)
 }
 
 version = "0.1.14-SNAPSHOT"
@@ -32,11 +36,13 @@ subprojects {
     group = "com.dailymotion.kinta"
     version = rootProject.version
 
-    apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "maven-publish")
     apply(plugin = "signing")
 
-    tasks.withType<org.jetbrains.dokka.gradle.DokkaTask> {
+    tasks.all {
+        if (this !is org.jetbrains.dokka.gradle.DokkaTask) {
+            return@all
+        }
         outputDirectory.set(rootDir.resolve("build/kdoc"))
         dokkaSourceSets {
             configureEach {
