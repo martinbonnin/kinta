@@ -25,7 +25,7 @@ Install kinta:
 
 ```
 curl -s 'https://dailymotion.github.io/kinta/install.sh' |sh
-
+cds
 source ~/.kinta/setup-environment.sh
 ```
 
